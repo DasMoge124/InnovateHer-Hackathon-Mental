@@ -1,42 +1,191 @@
+/* --- GLOBAL RESET & FULL WIDTH --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0;
+  padding: 0;
+  display: block;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* --- NAVIGATION BAR --- */
+.nav_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 25px 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 224, 255, 0.1);
 }
 
-@keyframes logo-spin {
+.nav_links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  width: 90%;
+  max-width: 1400px;
+}
+
+.nav_list,
+.nav_a {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--text-light);
+  text-decoration: none;
+}
+
+.nav_a:hover {
+  color: var(--primary-electric);
+  text-shadow: 0 0 5px rgba(0, 224, 255, 0.7);
+}
+
+/* --- MAIN CONTENT CONTAINER --- */
+.page-content {
+  position: relative;
+  z-index: 1;
+  padding-top: 120px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* --- BOX CONTAINER --- */
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 90% !important;
+  max-width: 1600px !important;
+  min-height: 70vh;
+  margin: 60px auto;
+  background-color: var(--bg-dark);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.8),
+    var(--neon-glow-soft);
+  border: 1px solid rgba(0, 224, 255, 0.2);
+}
+
+/* --- INTERNAL SECTIONS --- */
+.image-section {
+  flex: 1.2;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.image-section img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.text-section {
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  animation: fadeIn 1.5s ease-in;
+}
+
+.text-section h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--primary-electric);
+  text-shadow: var(--neon-glow-soft);
+}
+
+.text-section p {
+  font-size: 20px;
+  margin-bottom: 30px;
+  color: #c0c0c0;
+}
+
+/* --- BUTTON ELEMENTS (Beginner Page) --- */
+.ButtonElements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  justify-content: center; /* <-- CENTER buttons horizontally */
+}
+
+.ButtonElements button {
+  min-width: 180px; /* optional for consistent button size */
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 1024px) {
+  .container {
+    width: 95%;
+  }
+  .nav_links {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    margin: 20px auto;
+    width: 90%;
+  }
+  .text-section {
+    text-align: center;
+    padding: 30px;
+  }
+  .text-section button {
+    align-self: center;
+  }
+}
+
+/* --- FADE IN ANIMATION --- */
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Allow particles to render behind everything */
+.app-main {
+  position: relative;
+  z-index: 1;
 }
 
-.card {
-  padding: 2em;
+/* Make sure header stays above particles */
+.nav_header {
+  position: relative;
+  z-index: 10;
 }
 
-.read-the-docs {
-  color: #888;
+.page-container {
+  padding-top: 80px; /* match navbar height */
 }

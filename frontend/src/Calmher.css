@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5e6b3 0%, #f5d999 100%);
+}
+
+.content-section {
+  flex: 1;
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.logo {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 2.5rem;
+  color: #e88bb5;
+  font-weight: 400;
+  margin-right: 60px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 35px;
+}
+
+.nav-link {
+  color: #d678a8;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #c55a92;
+}
+
+.hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 40px;
+}
+
+.hero-title {
+  font-size: 6rem;
+  color: #ea92bd;
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 60px;
+  letter-spacing: -2px;
+}
+
+.date {
+  color: #ea92bd;
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin-top: auto;
+  padding-bottom: 40px;
+}
+
+.image-section {
+  flex: 0 0 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .image-section {
+    flex: 0 0 400px;
+  }
+
+  .hero-title {
+    font-size: 4.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-section {
+    padding: 30px 40px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 60px;
+  }
+
+  .logo {
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    padding-left: 0;
+  }
+
+  .hero-content {
+    padding-left: 0;
+  }
+
+  .image-section {
+    flex: 0 0 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .content-section {
+    padding: 20px 25px;
+  }
+
+  .logo {
+    font-size: 2rem;
+  }
+}
