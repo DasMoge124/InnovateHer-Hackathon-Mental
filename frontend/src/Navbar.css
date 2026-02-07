@@ -1,0 +1,140 @@
+/* Floating glass navbar with yellow/pink theme */
+.nav-container {
+  position: fixed;
+  top: 20px; /* floats below top */
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 60px); /* leave margin sides */
+  max-width: 1400px;
+  padding: 18px 30px;
+  background: rgba(245, 230, 179, 0.95); /* soft yellow with transparency */
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  border: 1px solid rgba(234, 146, 189, 0.2);
+  box-shadow: 0 5px 25px rgba(245, 217, 153, 0.3);
+  transition: all 0.4s ease;
+  z-index: 100;
+}
+
+.nav-container.scrolled {
+  background: rgba(245, 230, 179, 0.98);
+  padding: 12px 30px;
+  box-shadow: 0 5px 25px rgba(234, 146, 189, 0.25);
+  border: 1px solid rgba(234, 146, 189, 0.3);
+}
+
+/* Flex container for content */
+.nav-content {
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo styling - cursive pink */
+.nav-logo {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #ea92bd;
+  font-family: 'Brush Script MT', cursive;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+  color: #d678a8;
+}
+
+/* Links container */
+.nav-links-list {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+/* Individual links - pink text */
+.nav-item {
+  color: #d678a8;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  position: relative;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Hover effects for links */
+.nav-item:hover {
+  color: #c55a92;
+}
+
+.nav-item:after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: #ea92bd;
+  transition: width 0.3s ease;
+}
+
+.nav-item:hover:after {
+  width: 100%;
+  left: 0;
+  background: #ea92bd;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .nav-container {
+    width: calc(100% - 30px);
+    padding: 15px 20px;
+  }
+
+  .nav-logo {
+    font-size: 1.6rem;
+  }
+
+  .nav-links-list {
+    gap: 20px;
+  }
+
+  .nav-item {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-container {
+    top: 10px;
+    width: calc(100% - 20px);
+    padding: 12px 15px;
+  }
+
+  .nav-logo {
+    font-size: 1.4rem;
+  }
+
+  .nav-links-list {
+    gap: 15px;
+  }
+
+  .nav-item {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links-list {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .nav-item {
+    font-size: 0.85rem;
+  }
+}
