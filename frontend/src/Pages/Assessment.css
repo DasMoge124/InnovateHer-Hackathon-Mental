@@ -1,0 +1,388 @@
+/* Assessment Container */
+.assessment-container {
+  min-height: 100vh;
+  background: #f5e6b3;
+  padding: 120px 20px 40px 20px;
+}
+
+.assessment-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.assessment-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid rgba(234, 146, 189, 0.2);
+}
+
+.assessment-title {
+  font-size: 2.5rem;
+  color: #ea92bd;
+  font-weight: 300;
+  margin-bottom: 15px;
+  letter-spacing: -1px;
+}
+
+.assessment-subtitle {
+  font-size: 1.3rem;
+  color: #d678a8;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+/* Introduction */
+.assessment-intro {
+  margin-bottom: 40px;
+  padding: 25px;
+  background: rgba(245, 230, 179, 0.3);
+  border-radius: 12px;
+  border-left: 4px solid #ea92bd;
+}
+
+.intro-text {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.intro-text:last-child {
+  margin-bottom: 0;
+}
+
+.note-text {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(234, 146, 189, 0.2);
+}
+
+/* Results Section */
+.results-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(234, 146, 189, 0.1) 0%, rgba(245, 230, 179, 0.2) 100%);
+  border-radius: 16px;
+  text-align: center;
+  border: 2px solid #ea92bd;
+}
+
+.results-title {
+  font-size: 2rem;
+  color: #ea92bd;
+  margin-bottom: 25px;
+  font-weight: 400;
+}
+
+.score-display {
+  margin-bottom: 30px;
+}
+
+.score-number {
+  font-size: 4rem;
+  color: #ea92bd;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 1.1rem;
+  color: #d678a8;
+  margin-top: 10px;
+}
+
+.interpretation {
+  margin-bottom: 25px;
+}
+
+.interpretation-level {
+  font-size: 1.5rem;
+  color: #d678a8;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.interpretation-message {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.reset-button {
+  padding: 12px 30px;
+  background: #fff;
+  color: #ea92bd;
+  border: 2px solid #ea92bd;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+  background: #ea92bd;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(234, 146, 189, 0.3);
+}
+
+/* Form */
+.assessment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Question Categories */
+.question-category {
+  padding: 30px;
+  background: rgba(245, 230, 179, 0.15);
+  border-radius: 16px;
+  border-left: 4px solid #d678a8;
+}
+
+.category-title {
+  font-size: 1.8rem;
+  color: #ea92bd;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+/* Question Block */
+.question-block {
+  margin-bottom: 30px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(234, 146, 189, 0.2);
+}
+
+.question-block:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.question-text {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.question-number {
+  color: #d678a8;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.reverse-note {
+  color: #999;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* Scale Options */
+.scale-options {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.scale-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scale-option:hover .option-label {
+  color: #ea92bd;
+}
+
+.scale-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #ea92bd;
+}
+
+.scale-option input[type="radio"]:checked + .option-label {
+  color: #ea92bd;
+  font-weight: 600;
+}
+
+.option-label {
+  font-size: 1rem;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+/* Scoring Info */
+.scoring-info {
+  padding: 30px;
+  background: rgba(245, 230, 179, 0.3);
+  border-radius: 16px;
+  border: 2px solid rgba(234, 146, 189, 0.3);
+}
+
+.scoring-title {
+  font-size: 1.6rem;
+  color: #ea92bd;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.scoring-note {
+  color: #555;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.scoring-table {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scoring-row {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.score-range {
+  font-weight: 600;
+  color: #ea92bd;
+  min-width: 80px;
+  font-size: 1.1rem;
+}
+
+.score-meaning {
+  color: #555;
+  font-size: 1rem;
+  flex: 1;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.submit-button {
+  padding: 18px 60px;
+  background: linear-gradient(135deg, #f5d999 0%, #f0c868 100%);
+  color: #ea92bd;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(240, 200, 104, 0.3);
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(240, 200, 104, 0.4);
+  background: linear-gradient(135deg, #f0c868 0%, #eab845 100%);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .assessment-container {
+    padding: 100px 15px 30px 15px;
+  }
+
+  .assessment-card {
+    padding: 35px 25px;
+  }
+
+  .assessment-title {
+    font-size: 2rem;
+  }
+
+  .assessment-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .category-title {
+    font-size: 1.5rem;
+  }
+
+  .scale-options {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .scoring-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .score-range {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .assessment-container {
+    padding: 90px 10px 20px 10px;
+  }
+
+  .assessment-card {
+    padding: 25px 20px;
+  }
+
+  .assessment-title {
+    font-size: 1.7rem;
+  }
+
+  .assessment-subtitle {
+    font-size: 1rem;
+  }
+
+  .question-category {
+    padding: 20px;
+  }
+
+  .category-title {
+    font-size: 1.3rem;
+  }
+
+  .question-text {
+    font-size: 1rem;
+  }
+
+  .submit-button {
+    font-size: 1.2rem;
+    padding: 15px 40px;
+  }
+
+  .score-number {
+    font-size: 3rem;
+  }
+}
