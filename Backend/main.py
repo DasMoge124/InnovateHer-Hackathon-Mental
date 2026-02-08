@@ -1,3 +1,8 @@
+#COMBINE THE MAIN OF ALL FEATURES HERE
+
+
+
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -273,12 +278,40 @@ def get_statistics():
         raise HTTPException(status_code=500, detail=f"Failed to fetch statistics: {str(e)}")
 
 
-        #Mental Planner
+#Mental Planner MAIN
         
 from mental_planner.router import router as mental_planner_router
 
 # Register the router
 app.include_router(mental_planner_router)
+
+#CHATBOT MAIN
+# --- Chatbot integration ---
+from chatbot.gemini_client import generate_supportive_reply
+from chatbot.resources import CRISIS_RESPONSE
+from chatbot.safety import assess_risk
+from chatbot.models import ChatRequest, ChatResponse, conversation_history, MAX_HISTORY
+
+@app.post("/chat", response_model=ChatResponse, tags=["Chatbot"])
+def chat(req: ChatRequest):
+    risk = assess_risk(req.message)
+
+    if risk == "high":
+        return ChatResponse(reply=CRISIS_RESPONSE, risk_level="high")
+
+    # Conversation memory
+    history = conversation_history.get(req.user_id, [])
+
+    # Generate AI response
+    reply = generate_supportive_reply(req.message, conversation_history=history)
+
+    # Update memory
+    history.append({"role": "user", "text": req.message})
+    history.append({"role": "bot", "text": reply})
+    conversation_history[req.user_id] = history[-MAX_HISTORY:]
+
+    return ChatResponse(reply=reply, risk_level="low")
+
 
 print("✅ FastAPI routes registered successfully")
 print("📍 API will be available at http://127.0.0.1:8005")
