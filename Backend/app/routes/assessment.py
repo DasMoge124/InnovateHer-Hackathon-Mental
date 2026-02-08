@@ -1,15 +1,12 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from typing import Optional
-import sys
 import os
 import json
 
-# Add Backend directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
-from db_help2 import db
-from app.services.elevenlabs import transcribe_audio
-from app.services.scoring import calculate_burnout_score
+from Backend.db_help2 import db
+from ..services.elevenlabs import transcribe_audio
+from ..services.scoring import calculate_burnout_score
 
 router = APIRouter()
 
