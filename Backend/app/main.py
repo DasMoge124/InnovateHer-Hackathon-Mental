@@ -3,14 +3,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict
 from bson import ObjectId
+from fastapi import UploadFile, File, Form
+import traceback
 
-print("🚀 Starting InnovateHer API...")
 
 try:
-    from db_help import db
-    print("✅ Database connected successfully")
+    from app.core.db_help import db
+    print("Database connected successfully")
 except Exception as e:
-    print(f"❌ Database connection failed: {e}")
+    print(f"Database connection failed: {e}")
     db = None
 
 app = FastAPI(
@@ -28,7 +29,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ============= REQUEST MODELS =============
 class AssessmentRequest(BaseModel):
     user_id: str
     emotional: Dict
@@ -45,9 +45,9 @@ class TodoRequest(BaseModel):
     todos: List[Dict]
     burnout_score: float = 0
 
-# ============= HELPER FUNCTION =============
+
 def serialize_mongo_doc(doc):
-    """Convert MongoDB ObjectId to string"""
+
     if isinstance(doc, list):
         return [serialize_mongo_doc(item) for item in doc]
     if isinstance(doc, dict):
@@ -55,14 +55,13 @@ def serialize_mongo_doc(doc):
                 for key, value in doc.items()}
     return doc
 
-# ============= ENDPOINTS =============
+
 
 @app.get("/", tags=["Health Check"])
 def home():
-    """API health check with database status"""
     if db is None:
         return {
-            "message": "InnovateHer API Running ⚠️",
+            "message": "InnovateHer API Running ",
             "status": "degraded",
             "database": "disconnected"
         }
@@ -73,7 +72,7 @@ def home():
         assessment_count = db.assessment_collection.count_documents({})
         
         return {
-            "message": "InnovateHer API Running ✅",
+            "message": "InnovateHer API Running ",
             "status": "healthy",
             "database": "connected",
             "stats": {
@@ -91,7 +90,7 @@ def home():
         }
     except Exception as e:
         return {
-            "message": "InnovateHer API Running ⚠️",
+            "message": "InnovateHer API Running ",
             "status": "degraded",
             "database": "error",
             "error": str(e)
@@ -99,7 +98,6 @@ def home():
 
 @app.post("/users/{user_id}", tags=["Users"])
 def create_user(user_id: str):
-    """Create a new user in the system"""
     if db is None:
         raise HTTPException(status_code=503, detail="Database unavailable")
     
@@ -111,7 +109,6 @@ def create_user(user_id: str):
 
 @app.post("/assessment", tags=["Assessments"])
 def store_assessment(data: AssessmentRequest):
-    """Store a new mental health assessment"""
     if db is None:
         raise HTTPException(status_code=503, detail="Database unavailable")
     
@@ -127,7 +124,6 @@ def store_assessment(data: AssessmentRequest):
 
 @app.post("/burnout", tags=["Burnout"])
 def store_burnout(data: BurnoutRequest):
-    """Store burnout score and risk level"""
     if db is None:
         raise HTTPException(status_code=503, detail="Database unavailable")
     
@@ -144,7 +140,6 @@ def store_burnout(data: BurnoutRequest):
 
 @app.post("/todos", tags=["Todos"])
 def store_todos(data: TodoRequest):
-    """Store AI-generated todo list for user"""
     if db is None:
         raise HTTPException(status_code=503, detail="Database unavailable")
     
@@ -160,7 +155,6 @@ def store_todos(data: TodoRequest):
 
 @app.get("/burnout/{user_id}", tags=["Burnout"])
 def get_burnout(user_id: str):
-    """Get user's latest burnout score and risk level"""
     if db is None:
         raise HTTPException(status_code=503, detail="Database unavailable")
     
@@ -177,7 +171,6 @@ def get_burnout(user_id: str):
 
 @app.get("/assessments/{user_id}", tags=["Assessments"])
 def get_assessments(user_id: str, limit: int = 10):
-    """Get user's assessment history"""
     if db is None:
         raise HTTPException(status_code=503, detail="Database unavailable")
     
@@ -195,7 +188,9 @@ def get_assessments(user_id: str, limit: int = 10):
 
 @app.get("/todos/{user_id}", tags=["Todos"])
 def get_todos(user_id: str):
-    """Get user's latest todo list"""
+    """
+    gives to
+    """
     if db is None:
         raise HTTPException(status_code=503, detail="Database unavailable")
     
@@ -211,20 +206,13 @@ def get_todos(user_id: str):
 
 @app.get("/therapists", tags=["Therapists"])
 def get_therapists(city: str = None, category: str = None, limit: int = 10):
-    """
-    Search for therapists in Indiana
-    
-    - **city**: Filter by city (e.g., Indianapolis, Fort Wayne)
-    - **category**: Filter by type (Psychiatrist, Psychologist, Social Worker, Counselor, Marriage Therapist)
-    - **limit**: Maximum number of results (default: 10)
-    """
+
     if db is None:
         raise HTTPException(status_code=503, detail="Database unavailable")
     
     try:
         therapists = db.get_therapists(city, category, limit)
         
-        # Serialize MongoDB ObjectIds
         therapists = serialize_mongo_doc(therapists)
         
         return {
@@ -270,7 +258,67 @@ def get_statistics():
         return stats
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch statistics: {str(e)}")
+    
+@app.post("/speech/assessment", tags=["Speech"])
+async def speech_assessment(audio_file: UploadFile = File(...), user_id: str = Form(...)):
+    """
+    Speech Assessment Endpoint
+    """
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database unavailable")
+    
+    if not audio_file:
+        raise HTTPException(status_code=400, detail="No audio file provided")
+    
+    allowed_types = ["audio/mpeg", "audio/wav", "audio/mp3"]
+    if audio_file.content_type not in allowed_types:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Invalid audio format. Allowed: {', '.join(allowed_types)}"
+        )
+    
+    if not user_id or not user_id.strip():
+        raise HTTPException(status_code=400, detail="user_id is required")
+    
+    try:
+        from app.services.elevenlabs import speech_to_assessment
+        result = await speech_to_assessment(audio_file, user_id)
+        return result
+    except Exception as e:
+        print(f"ERROR in speech_assessment: {str(e)}")
+        print(traceback.format_exc())
+        raise HTTPException(status_code=500, detail=f"Speech assessment failed: {str(e)}")
 
-print("✅ FastAPI routes registered successfully")
-print("📍 API will be available at http://127.0.0.1:8005")
-print("📚 Interactive docs at http://127.0.0.1:8005/docs")
+@app.get("/speech/{user_id}/history", tags=["Speech"])
+def get_speech_history(user_id: str, limit: int = 10):
+    """
+    Get all speech assessments for a user
+    
+    Args:
+        user_id: User identifier
+        limit: Max number of assessments to return (default 10)
+        
+    Returns:
+        List of speech assessments with transcripts
+    """
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database unavailable")
+    
+    try:
+        assessments = db.get_user_assessments(user_id, limit)
+        assessments = serialize_mongo_doc(assessments)
+        
+        # Filter to show only speech assessments
+        speech_assessments = [
+            a for a in assessments 
+            if a.get("emotional_answers", {}).get("source") == "speech_assessment"
+        ]
+        
+        return {
+            "user_id": user_id,
+            "count": len(speech_assessments),
+            "assessments": speech_assessments
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch speech history: {str(e)}")
+
