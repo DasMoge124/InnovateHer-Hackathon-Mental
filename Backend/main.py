@@ -2,7 +2,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict
-from bson import ObjectId
+from json import ObjectId
+from config import CORS_ORIGINS
 
 print("🚀 Starting InnovateHer API...")
 
@@ -270,6 +271,14 @@ def get_statistics():
         return stats
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch statistics: {str(e)}")
+
+
+        #Mental Planner
+        
+from mental_planner.router import router as mental_planner_router
+
+# Register the router
+app.include_router(mental_planner_router)
 
 print("✅ FastAPI routes registered successfully")
 print("📍 API will be available at http://127.0.0.1:8005")
