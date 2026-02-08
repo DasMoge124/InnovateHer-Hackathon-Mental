@@ -107,12 +107,6 @@ const TherapistFinder = () => {
       <div className="therapist-finder-header">
         <h1 className="finder-title">Find Your Therapist</h1>
         <p className="finder-subtitle">Connect with licensed mental health professionals</p>
-        <button 
-          className="register-therapist-button"
-          onClick={() => setShowRegisterModal(true)}
-        >
-          Register as a Therapist
-        </button>
       </div>
 
       <div className="finder-content">
@@ -281,22 +275,6 @@ const TherapistFinder = () => {
           )}
         </div>
       </div>
-
-      {/* Register Modal Overlay */}
-      {showRegisterModal && (
-        <div className="modal-overlay" onClick={() => setShowRegisterModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowRegisterModal(false)}>×</button>
-            <h2 className="modal-title">Register as a Therapist</h2>
-            <p className="modal-text">
-              To ensure the highest quality care for our users, we require all therapists to complete a verification process.
-            </p>
-            <a href="/therapist-registration" className="modal-link-button">
-              Start Registration Process
-            </a>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
