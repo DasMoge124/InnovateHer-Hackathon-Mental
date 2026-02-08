@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { parseICSFile, jsonToICS } from './utils/icsToJson';
 import './ScheduleGenerator.css';
 
@@ -16,7 +15,6 @@ const ScheduleGenerator = () => {
   const [schedule, setSchedule] = useState(null);
   const [error, setError] = useState(null);
   const [showHelp, setShowHelp] = useState(false);
-  const navigate = useNavigate();
 
   // Handle form input changes
   const handleInputChange = (e) => {
@@ -133,11 +131,7 @@ const ScheduleGenerator = () => {
   return (
     <div className="schedule-generator">
       <nav className="navbar">
-        <h1 className="logo">CalmHer</h1>
-        <div className="nav-links">
-          <a href="/" className="nav-link">Home</a>
-          <a href="/login" className="nav-link">Login</a>
-        </div>
+        <h1 className="logo">CalmHer - Wellness Schedule Generator</h1>
       </nav>
 
       <div className="generator-container">
