@@ -107,6 +107,12 @@ const TherapistFinder = () => {
       <div className="therapist-finder-header">
         <h1 className="finder-title">Find Your Therapist</h1>
         <p className="finder-subtitle">Connect with licensed mental health professionals</p>
+        <button 
+          className="register-therapist-button"
+          onClick={() => setShowRegisterModal(true)}
+        >
+          Register as a Therapist
+        </button>
       </div>
 
       <div className="finder-content">
