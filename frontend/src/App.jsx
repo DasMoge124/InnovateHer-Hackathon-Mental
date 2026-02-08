@@ -9,6 +9,7 @@ import Login from "./Pages/Login";
 import Assessment from "./Pages/Assessment";
 import TherapistFinder from "./Pages/Therapist_finder";
 import MentalPlanner from "./Pages/Mental_Planner";
+import TherapistRegistration from "./Pages/TherapistRegistration";
 import Navbar from "./Navbar";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/assessment" element={<Assessment/>} />
         <Route path="/therapist-finder" element={<TherapistFinder/>} />
         <Route path="/mental-planner" element={<MentalPlanner/>} />
+        <Route path="/therapist-registration" element={<TherapistRegistration/>} />
       </Routes>
     </BrowserRouter>
     </>
