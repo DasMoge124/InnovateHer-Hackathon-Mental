@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Calmher.css';
 
 const CalmHer = () => {
@@ -8,6 +9,8 @@ const CalmHer = () => {
         <nav className="navbar">
           <h1 className="logo">CalmHer</h1>
           <div className="nav-links">
+            <Link to="/schedule" className="nav-link">Generate Schedule</Link>
+            <Link to="/calendar-guide" className="nav-link">Calendar Guide</Link>
             <a href="/login" className="nav-link">Login</a>
             <a href="/signup" className="nav-link">Sign Up</a>
             <a href="/assessment" className="nav-link">Assessment</a>
@@ -20,6 +23,9 @@ const CalmHer = () => {
             Find Your<br />Inner Peace
           </h2>
           <p className="date">February 7, 2026</p>
+          <Link to="/schedule" className="cta-button">
+            Create Wellness Schedule
+          </Link>
         </div>
       </div>
 
