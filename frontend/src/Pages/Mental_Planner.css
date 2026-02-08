@@ -1,0 +1,137 @@
+/* MentalPlanner.css */
+
+/* --- Page Container --- */
+.mental-planner-container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+/* --- Header --- */
+.mental-planner-container h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  color: #4a90e2;
+  text-align: center;
+}
+
+.mental-planner-container p {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+/* --- Form Styles --- */
+.planner-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.form-group input[type="date"],
+.form-group input[type="number"],
+.form-group input[type="file"],
+.form-group textarea,
+.form-group select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+/* --- Textarea --- */
+textarea {
+  resize: vertical;
+}
+
+/* --- Buttons --- */
+button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:disabled {
+  background-color: #a1c4fd;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #357ab8;
+}
+
+/* --- Download Link --- */
+.download-btn {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #50c878;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.download-btn:hover {
+  background-color: #3da75d;
+}
+
+/* --- Error Text --- */
+.error-text {
+  color: #e74c3c;
+  font-weight: 600;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* --- File Info --- */
+.form-group p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .mental-planner-container {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  button, .download-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
