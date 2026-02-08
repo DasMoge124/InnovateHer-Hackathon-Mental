@@ -1,10 +1,29 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.routes import assessment
 
-app = FastAPI()
+app = FastAPI(
+    title="InnovateHer Burnout Assessment API",
+    description="API for burnout assessment with voice transcription",
+    version="1.0.0"
+)
 
-app.include_router(assessment.router, prefix="/api/assessment")
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.get("/api/health")
-def health():
-    return {"status": "ok"}
+# Include assessment routes
+app.include_router(assessment.router, prefix="/assessment", tags=["Assessment"])
+
+@app.get("/")
+def home():
+    return {
+        "message": "InnovateHer Burnout Assessment API",
+        "status": "running",
+        "docs": "/docs"
+    }

@@ -1,25 +1,24 @@
 import requests
-from app.core.config import ELEVENLABS_API_KEY
+import os
+from dotenv import load_dotenv
 
-def transcribe_voice(audio_base64: str) -> str:
-    if not ELEVENLABS_API_KEY:
-        raise Exception("Missing ElevenLabs API key")
+load_dotenv()
 
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
+
+def transcribe_audio(audio_file_path: str) -> str:
+    """Transcribe audio file using ElevenLabs STT API"""
     url = "https://api.elevenlabs.io/v1/speech-to-text"
 
     headers = {
-        "xi-api-key": ELEVENLABS_API_KEY,
-        "Content-Type": "application/json"
+        "xi-api-key": ELEVENLABS_API_KEY
     }
 
-    payload = {
-        "audio": audio_base64
-    }
-
-    response = requests.post(url, json=payload, headers=headers)
+    with open(audio_file_path, "rb") as audio_file:
+        files = {"file": audio_file}
+        response = requests.post(url, headers=headers, files=files)
 
     if response.status_code != 200:
-        raise Exception("ElevenLabs transcription failed")
+        raise Exception(f"ElevenLabs transcription failed: {response.text}")
 
-    data = response.json()
-    return data.get("text", "")
+    return response.json().get("text", "")
