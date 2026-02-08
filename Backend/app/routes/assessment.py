@@ -4,12 +4,12 @@ import sys
 import os
 import json
 
-# Add parent directory to path to import db_help
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+# Add Backend directory to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
+from db_help2 import db
 from app.services.elevenlabs import transcribe_audio
 from app.services.scoring import calculate_burnout_score
-from db_help import db
 
 router = APIRouter()
 
@@ -32,7 +32,6 @@ async def submit_assessment(
         
         transcript = None
 
-        # Step 1: Transcribe voice if provided
         if voice_note:
             # Save uploaded file temporarily
             file_path = f"temp_{voice_note.filename}"
@@ -40,16 +39,12 @@ async def submit_assessment(
                 content = await voice_note.read()
                 f.write(content)
             
-            # Transcribe using ElevenLabs
             transcript = transcribe_audio(file_path)
             
-            # Clean up temp file
             os.remove(file_path)
 
-        # Step 2: Calculate burnout score
         result = calculate_burnout_score(answers_dict)
 
-        # Step 3: Save to database
         assessment_id = db.store_assessment(
             user_id=user_id,
             emotional=answers_dict,
@@ -63,7 +58,6 @@ async def submit_assessment(
             risk_level=result["severity"]
         )
 
-        # Step 4: Return response
         return {
             "success": True,
             "assessment_id": assessment_id,
