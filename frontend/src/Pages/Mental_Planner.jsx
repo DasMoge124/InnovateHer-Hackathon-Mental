@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./MentalPlanner.css";
+import "./Mental_Planner.css";
 
 const MentalPlanner = () => {
   const [form, setForm] = useState({
