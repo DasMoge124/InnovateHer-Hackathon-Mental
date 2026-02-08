@@ -1,53 +1,37 @@
-#COMBINE THE CONFIG OF ALL FEATURES HERE AND LABEL THEM
+"""Application configuration.
 
+This module reads environment variables but performs no heavy side-effects
+at import time (no DB connections, no prints of secrets).
 """
-Just a checker file to check if connection is established
-"""
-#DB CONFIG
-from db_help import db
-print("Collections:", db.db.list_collection_names())
-
-#CHATBOT CONFIG
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
-if not GEMINI_API_KEY:
-    raise RuntimeError("GEMINI_API_KEY not set")
-
-
-
-#MENTAL-PLANNER CONFIG
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-class Config:
-    """Base configuration"""
-    FLASK_ENV = os.environ.get("FLASK_ENV", "development")
-    FLASK_DEBUG = os.environ.get("FLASK_DEBUG", True)
-    PORT = int(os.environ.get("PORT", 5000))
-    HOST = os.environ.get("HOST", "localhost")
-
-class DevelopmentConfig(Config):
-    """Development configuration"""
-    DEBUG = True
-
-class ProductionConfig(Config):
-    """Production configuration"""
-    DEBUG = False
-
-# Gemini Configuration
+# Gemini API key (may be empty in dev; do NOT log this value)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
-# CORS Configuration
+
+class Config:
+    """Base configuration values."""
+    FLASK_ENV = os.environ.get("FLASK_ENV", "development")
+    FLASK_DEBUG = os.environ.get("FLASK_DEBUG", "True")
+    PORT = int(os.environ.get("PORT", 8000))
+    HOST = os.environ.get("HOST", "localhost")
+
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+
+
+# CORS origins (frontend URLs)
 CORS_ORIGINS = [
-    "http://localhost:5173",  # Vite default port
-    "http://localhost:5174",  # Vite fallback port (if 5173 in use)
+    "http://localhost:5173",
+    "http://localhost:5174",
     "http://localhost:3000",
     "http://localhost:5000",
 ]
